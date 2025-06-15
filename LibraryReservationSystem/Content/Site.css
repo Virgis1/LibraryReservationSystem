@@ -22,54 +22,55 @@ textarea {
 
 .container {
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    gap: 10px;
-    width: 100vw;
-}
-.section-title {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #2c3e50;
+    flex-wrap: wrap; 
+    gap: 20px;
+    justify-content: flex-start;
 }
 
 .book-card {
-    display: flex;
-    width: 30%;
-    background-color: #f9f9f9;
+    background: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 8px;
-    padding: 16px;
-    margin: 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-
+    width: 200px;
+    padding: 15px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s ease;
 }
 
+    .book-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
 .book-img {
-    width: 200px;
-    height: 100%;
+    width: 100px;
+    height: 140px;
     object-fit: cover;
     margin-bottom: 10px;
+    border-radius: 4px;
 }
 
 .book-info {
-    height: 100%;
     text-align: center;
-    display: flex;
-    flex-direction:column;
-    justify-content:center;
-    margin-left: 10px
 }
 
 .book-title {
-    font-size: 18px;
+    font-size: 1.1em;
+    margin: 0 0 8px 0;
+    font-weight: bold;
     color: #333;
-    margin: 5px 0;
 }
 
 .book-author, .book-year {
-    font-size: 14px;
-    color: #555;
     margin: 2px 0;
+    font-size: 0.9em;
+    color: #666;
 }
+
+
+
+
 

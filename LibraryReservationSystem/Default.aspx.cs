@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web.UI.WebControls;
 
 namespace LibraryReservationSystem
 {
@@ -10,13 +9,19 @@ namespace LibraryReservationSystem
         {
             if (!IsPostBack)
             {
-                BindGrid();
+                BindData();
             }
         }
 
-        private void BindGrid()
+        private void BindData()
         {
-            var books = new List<Book>
+            dgBooks.DataSource = GetBooks();
+            dgBooks.DataBind();
+        }
+
+        private List<Book> GetBooks()
+        {
+            return new List<Book>
             {
                 new Book { Title = "Netekę vilties", Author = "Colleen Hoover", Year = 2025 },
                 new Book { Title = "Skandaras ir griaučių prakeiksmas. 4 knyga", Author = "A.F. Steadman", Year = 2022 },
@@ -27,15 +32,6 @@ namespace LibraryReservationSystem
                 new Book { Title = "Prezidentas Gitanas Nausėda: iš arti", Author = "Laima Lavaste", Year = 2025 },
                 new Book { Title = "LEBRONAS", Author = "Jeff Benedict", Year = 2025 }
             };
-
-            gvBooks.DataSource = books;
-            gvBooks.DataBind();
-        }
-
-        protected void gvBooks_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvBooks.PageIndex = e.NewPageIndex;
-            BindGrid();
         }
 
         public class Book
