@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web.UI.WebControls;
 
 namespace LibraryReservationSystem
 {
@@ -17,6 +18,12 @@ namespace LibraryReservationSystem
         {
             dgBooks.DataSource = GetBooks();
             dgBooks.DataBind();
+        }
+
+        protected void dgBooks_PageIndexChanged(object source, DataGridPageChangedEventArgs e)
+        {
+            dgBooks.CurrentPageIndex = e.NewPageIndex;
+            BindData();
         }
 
         private List<Book> GetBooks()

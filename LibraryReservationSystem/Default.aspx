@@ -4,7 +4,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h2>Visos prieinamos knygos</h2>
 
-    <asp:DataGrid ID="dgBooks" runat="server" AutoGenerateColumns="false" CssClass="datagrid-custom">
+    <asp:DataGrid ID="dgBooks" runat="server" AutoGenerateColumns="false" CssClass="datagrid-custom" AllowPaging="true" PageSize="3" OnPageIndexChanged="dgBooks_PageIndexChanged">
         <Columns>
             <asp:TemplateColumn HeaderText="Title">
                 <ItemTemplate>
