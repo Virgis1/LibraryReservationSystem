@@ -17,9 +17,10 @@
         padding: 15px 20px;
         border: none;
         vertical-align: middle;
+        cursor: pointer !important;
     }
 
-    .datagrid-custom tr:hover {
+    .datagrid-custom td:hover {
         box-shadow: 0 6px 12px rgba(0,0,0,0.2);
     }
 
