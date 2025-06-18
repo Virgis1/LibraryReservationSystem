@@ -4,24 +4,31 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h2>Visos prieinamos knygos</h2>
 
-    <asp:DataGrid ID="dgBooks" runat="server" AutoGenerateColumns="false" CssClass="datagrid-custom" AllowPaging="true" PageSize="3" OnPageIndexChanged="dgBooks_PageIndexChanged">
+    <asp:DataGrid 
+        ID="dgBooks" 
+        runat="server" 
+        AutoGenerateColumns="false" 
+        CssClass="datagrid-custom" 
+        AllowPaging="true" 
+        PageSize="5" 
+        OnPageIndexChanged="dgBooks_PageIndexChanged">
+        
+        <HeaderStyle BackColor="#004080" ForeColor="White" Font-Bold="True" />
+
         <Columns>
-            <asp:TemplateColumn HeaderText="Title">
-                <HeaderStyle BackColor="#004080" ForeColor="White" Font-Bold="True" />
+            <asp:TemplateColumn HeaderText="Pavadinimas">
                 <ItemTemplate>
-                    <%# DataBinder.Eval(Container.DataItem, "Title") %>
+                    <%# Eval("Title") %>
                 </ItemTemplate>
             </asp:TemplateColumn>
-            <asp:TemplateColumn HeaderText="Author">
-                <HeaderStyle BackColor="#004080" ForeColor="White" Font-Bold="True" />
+            <asp:TemplateColumn HeaderText="Autorius">
                 <ItemTemplate>
-                    <%# DataBinder.Eval(Container.DataItem, "Author") %>
+                    <%# Eval("Author") %>
                 </ItemTemplate>
             </asp:TemplateColumn>
-            <asp:TemplateColumn HeaderText="Year">
-                <HeaderStyle BackColor="#004080" ForeColor="White" Font-Bold="True" />
+            <asp:TemplateColumn HeaderText="Metai">
                 <ItemTemplate>
-                    <%# DataBinder.Eval(Container.DataItem, "Year") %>
+                    <%# Eval("Year") %>
                 </ItemTemplate>
             </asp:TemplateColumn>
         </Columns>
