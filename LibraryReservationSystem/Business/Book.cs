@@ -12,5 +12,6 @@ namespace LibraryReservationSystem.Business
         public string Author { get; set; }
         public string Description { get; set; }
         public int Year { get; set; }
+        public bool IsInStock { get; set; }
     }
 }

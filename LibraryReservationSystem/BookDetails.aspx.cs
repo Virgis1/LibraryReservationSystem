@@ -21,6 +21,7 @@ namespace LibraryReservationSystem
                         lblAuthor.Text = book.Author;
                         lblYear.Text = book.Year.ToString();
                         lblDescription.Text = book.Description;
+                        lblIsInStock.Text = book.IsInStock ? "Taip" : "Ne";
                     }
                     else
                     {

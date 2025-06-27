@@ -11,6 +11,7 @@
         <p><strong>Aprašymas:</strong><br />
             <asp:Label ID="lblDescription" runat="server" CssClass="book-description" />
         </p>
+        <p><strong>Yra sandėlyje:</strong> <asp:Label ID="lblIsInStock" runat="server" CssClass="book-label" /></p>
 
         <a href="Default.aspx" class="back-link">← Grįžti atgal</a>
     </div>
