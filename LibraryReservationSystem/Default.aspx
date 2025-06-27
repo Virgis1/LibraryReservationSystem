@@ -18,21 +18,21 @@
         <Columns>
             <asp:TemplateColumn HeaderText="Pavadinimas">
                 <ItemTemplate>
-                   <a href='<%# "BookDetails.aspx?id=" + Eval("Id") %>' style="color: #004080; text-decoration: underline;">
+                   <a href='<%# "BookDetails.aspx?id=" + Eval("Id") %>'>
                         <%# Eval("Title") %>
                     </a>
                 </ItemTemplate>
             </asp:TemplateColumn>
             <asp:TemplateColumn HeaderText="Autorius">
                 <ItemTemplate>
-                    <a href='<%# "BookDetails.aspx?id=" + Eval("Id") %>' style="color: #004080; text-decoration: underline;">
+                    <a href='<%# "Details2.aspx?id=" + Eval("Id") %>'>
                         <%# Eval("Author") %>
                     </a>                 
                 </ItemTemplate>
             </asp:TemplateColumn>
             <asp:TemplateColumn HeaderText="Metai">
                 <ItemTemplate>
-                    <a href='<%# "BookDetails.aspx?id=" + Eval("Id") %>' style="color: #004080; text-decoration: underline;">
+                    <a href='<%# "BookDetails.aspx?id=" + Eval("Id") %>'>
                         <%# Eval("Year") %>
                     </a>                 
                 </ItemTemplate>

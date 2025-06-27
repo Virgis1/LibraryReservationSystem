@@ -6,37 +6,69 @@
     font-family: Arial, sans-serif;
 }
 
-    .datagrid-custom tr {
-        background-color: #f9f9f9;
-        border-radius: 10px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        transition: box-shadow 0.3s ease;
-    }
+.datagrid-custom tr {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s ease;
+}
 
-    .datagrid-custom td {
-        padding: 15px 20px;
-        border: none;
-        vertical-align: middle;
-        cursor: pointer !important;
-    }
+.datagrid-custom td {
+    padding: 15px 20px;
+    border: none;
+    vertical-align: middle;
+    cursor: pointer !important;
+}
 
-    .datagrid-custom td:hover {
-        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-    }
+.datagrid-custom td:hover {
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
 
-    .datagrid-custom th {
-        background-color: #333;
-        color: #fff;
-        padding: 12px 20px;
-        text-align: left;
-        border-radius: 10px 10px 0 0;
-    }
+.datagrid-custom th {
+    background-color: #333;
+    color: #fff;
+    padding: 12px 20px;
+    text-align: left;
+    border-radius: 10px 10px 0 0;
+}
 
-    .datagrid-custom tr:first-child td {
-        border-radius: 10px 10px 0 0;
-    }
+.datagrid-custom tr:first-child td {
+    border-radius: 10px 10px 0 0;
+}
 
-    .datagrid-custom tr:last-child td {
-        border-radius: 0 0 10px 10px;
-    }
+.datagrid-custom tr:last-child td {
+    border-radius: 0 0 10px 10px;
+}
 
+.book-details {
+    padding: 20px;
+    background-color: #f4f8fb;
+    border-radius: 12px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+}
+
+.book-label {
+    font-size: 16px;
+    color: #333;
+}
+
+.book-description {
+    font-size: 15px;
+    color: #444;
+    line-height: 1.6;
+    display: block;
+    margin-top: 5px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: #004080;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+    .back-link:hover {
+        text-decoration: underline;
+    }
