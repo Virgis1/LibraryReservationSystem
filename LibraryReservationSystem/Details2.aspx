@@ -5,11 +5,25 @@
     <h2 class="page-title">Informacija apie autorių</h2>
 
     <div class="book-details">
-        
-        <p><strong>Autorius:</strong> <asp:Label ID="lblAuthor" runat="server" CssClass="book-label" /></p>
+        <asp:DetailsView 
+            ID="dvBook" 
+            runat="server" 
+            AutoGenerateRows="false" 
+            DefaultMode="ReadOnly"
+            CssClass="details-view" 
+            OnModeChanging="dvBook_ModeChanging">
+            
+            <Fields>
+                <asp:BoundField DataField="Author" HeaderText="Autorius" />
+                <asp:BoundField DataField="Title" HeaderText="Pavadinimas" />
+                <asp:BoundField DataField="Description" HeaderText="Aprašymas" />
+                <asp:CheckBoxField DataField="IsInStock" HeaderText="Yra sandėlyje" />
+            </Fields>
+        </asp:DetailsView>
 
+        <asp:Button ID="btnEdit" runat="server" Text="Redaguoti" OnClick="btnEdit_Click" CssClass="edit-button" />
+
+        <br />
         <a href="Default.aspx" class="back-link">← Grįžti atgal</a>
     </div>
 </asp:Content>
-
-

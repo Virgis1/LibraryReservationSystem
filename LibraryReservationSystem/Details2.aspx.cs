@@ -1,7 +1,7 @@
-﻿using LibraryReservationSystem.Business;
-using LibraryReservationSystem.Data;
+﻿using LibraryReservationSystem.Data;
 using System;
 using System.Linq;
+using System.Web.UI.WebControls;
 
 namespace LibraryReservationSystem
 {
@@ -11,22 +11,33 @@ namespace LibraryReservationSystem
         {
             if (!IsPostBack)
             {
-                int id;
-                if (int.TryParse(Request.QueryString["id"], out id))
+                BindDetails();
+            }
+        }
+
+        private void BindDetails()
+        {
+            if (int.TryParse(Request.QueryString["id"], out int id))
+            {
+                var book = BookRepository.GetBooks().FirstOrDefault(b => b.Id == id);
+                if (book != null)
                 {
-                    var book = BookRepository.GetBooks().FirstOrDefault(b => b.Id == id);
-                    if (book != null)
-                    {
-                        
-                        lblAuthor.Text = book.Author;
-                    
-                    }
-                    else
-                    {
-                        lblAuthor.Text = "Book not found.";
-                    }
+                    dvBook.DataSource = new[] { book };
+                    dvBook.DataBind();
                 }
             }
+        }
+
+        protected void btnEdit_Click(object sender, EventArgs e)
+        {
+            dvBook.ChangeMode(DetailsViewMode.Edit);
+            BindDetails();
+        }
+
+        protected void dvBook_ModeChanging(object sender, DetailsViewModeEventArgs e)
+        {
+            dvBook.ChangeMode(e.NewMode);
+            BindDetails();
         }
     }
 }
