@@ -28,6 +28,14 @@
             </ItemTemplate>
             <EditItemTemplate>
                 <asp:TextBox ID="txtTitle" runat="server" Text='<%# Bind("Title") %>' />
+                <asp:RegularExpressionValidator 
+                    ID="titleValidator" 
+                    runat="server" 
+                    ControlToValidate="txtTitle" 
+                    ErrorMessage="Pavadinimas turi būti nuo 4 iki 20 simbolių" 
+                    ValidationExpression="^.{4,20}$" 
+                    Display="Dynamic" 
+                    ForeColor="Red" />
             </EditItemTemplate>
         </asp:TemplateField>
 
@@ -53,7 +61,7 @@
 
 
         <asp:Button ID="btnEdit" runat="server" Text="Redaguoti" OnClick="btnEdit_Click" CssClass="edit-button" />
-        <asp:Button ID="btnSave" runat="server" Text="Išsaugoti" OnClick="btnSave_Click" CssClass="save-button" Visible="false" />
+        <asp:Button ID="btnSave" runat="server" Text="Išsaugoti" OnClick="btnSave_Click" CssClass="save-button" Visible="false" CausesValidation="true" />
 
 
 
