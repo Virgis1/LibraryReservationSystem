@@ -15,12 +15,12 @@ namespace LibraryReservationSystem
     {
 
         /// <summary>
-        /// dgBooks control.
+        /// lvBooks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataGrid dgBooks;
+        protected global::System.Web.UI.WebControls.ListView lvBooks;
     }
 }

@@ -1,6 +1,6 @@
-﻿using System;
+﻿using LibraryReservationSystem.Data;
+using System;
 using System.Web.UI.WebControls;
-using LibraryReservationSystem.Data;
 
 namespace LibraryReservationSystem
 {
@@ -16,13 +16,17 @@ namespace LibraryReservationSystem
 
         private void BindBooks()
         {
-            dgBooks.DataSource = BookRepository.GetBooks();
-            dgBooks.DataBind();
+            lvBooks.DataSource = BookRepository.GetBooks();
+            lvBooks.DataBind();
         }
 
-        protected void dgBooks_PageIndexChanged(object source, DataGridPageChangedEventArgs e)
-        {
-            dgBooks.CurrentPageIndex = e.NewPageIndex;
+        protected void lvBooks_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
+        {          
+            DataPager dpBooks = lvBooks.FindControl("dpBooks") as DataPager;
+            if (dpBooks != null)
+            {
+                dpBooks.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
+            }
             BindBooks();
         }
     }
