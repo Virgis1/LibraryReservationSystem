@@ -6,7 +6,7 @@ namespace LibraryReservationSystem.Data
 {
     public static class BookRepository
     {
-        private static List<Book> _books = new List<Book>
+        private static IList<Book> _books = new List<Book>
         {
             new Book { Id = 1, Title = "Netekę vilties", Author = "Colleen Hoover",
                 Year = 2025, Description = "„Nepaprasta istorija apie meilę ir išlikimą...", IsInStock = false},
@@ -19,17 +19,21 @@ namespace LibraryReservationSystem.Data
             new Book { Id = 8, Title = "LEBRONAS", Author = "Jeff Benedict", Year = 2025, Description = "NEW YORK TIMES BESTSELERIS..." , IsInStock = false }
         };
 
-        public static List<Book> GetBooks()
+        public static IList<Book> GetBooks()
         {
             return _books;
         }
 
         public static void UpdateBook(Book updatedBook)
         {
-            var index = _books.FindIndex(b => b.Id == updatedBook.Id);
-            if (index >= 0)
+            var book = _books.FirstOrDefault(b => b.Id == updatedBook.Id);
+            if (book != null)
             {
-                _books[index] = updatedBook;
+                book.Title = updatedBook.Title;
+                book.Author = updatedBook.Author;
+                book.Year = updatedBook.Year;
+                book.Description = updatedBook.Description;
+                book.IsInStock = updatedBook.IsInStock;
             }
         }
     }
