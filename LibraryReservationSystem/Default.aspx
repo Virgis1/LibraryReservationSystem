@@ -1,8 +1,15 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" 
     AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="LibraryReservationSystem._Default" %>
 
+<%@ Register TagPrefix="uc" TagName="BookCount" Src="~/Controls/BookCount.ascx" %>
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h2>Visos prieinamos knygos</h2>
+
+     <div class="book-count">
+        <uc:BookCount ID="BookCount1" runat="server" />
+    </div>
 
     <asp:ListView ID="lvBooks" runat="server" OnPagePropertiesChanging="lvBooks_PagePropertiesChanging" OnSorting="lvBooks_Sorting" AllowSorting="true">
     <LayoutTemplate>

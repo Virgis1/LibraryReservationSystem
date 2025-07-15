@@ -116,6 +116,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Controls\BookCount.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="Details2.aspx" />
     <Content Include="favicon.ico" />
@@ -205,6 +206,13 @@
     </Compile>
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\BookCount.ascx.cs">
+      <DependentUpon>BookCount.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\BookCount.ascx.designer.cs">
+      <DependentUpon>BookCount.ascx</DependentUpon>
     </Compile>
     <Compile Include="Data\BookRepository.cs" />
     <Compile Include="Default.aspx.cs">

@@ -7,29 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LibraryReservationSystem
+namespace LibraryReservationSystem.Controls
 {
 
 
-    public partial class _Default
+    public partial class BookCount
     {
 
         /// <summary>
-        /// BookCount1 control.
+        /// lblBookCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::LibraryReservationSystem.Controls.BookCount BookCount1;
-
-        /// <summary>
-        /// lvBooks control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView lvBooks;
+        protected global::System.Web.UI.WebControls.Label lblBookCount;
     }
 }

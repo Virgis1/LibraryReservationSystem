@@ -58,5 +58,14 @@ namespace LibraryReservationSystem
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblIsInStock;
+
+        /// <summary>
+        /// BookCount1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::LibraryReservationSystem.Controls.BookCount BookCount1;
     }
 }
