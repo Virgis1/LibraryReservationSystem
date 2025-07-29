@@ -92,6 +92,9 @@ namespace LibraryReservationSystem
 
         protected void btnAddBook_Click(object sender, EventArgs e)
         {
+            if (!Page.IsValid)
+                return;
+
             var newBook = new LibraryReservationSystem.Business.Book
             {
                 Title = txtTitle.Text.Trim(),

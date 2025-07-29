@@ -16,12 +16,29 @@
     <br /><br />
 
     <asp:Panel ID="pnlAddBookForm" runat="server" Visible="false">
-        <asp:TextBox ID="txtTitle" runat="server" Placeholder="Pavadinimas" CssClass="form-control"></asp:TextBox><br />
+        <asp:TextBox ID="txtTitle" runat="server" Placeholder="Pavadinimas" CssClass="form-control"></asp:TextBox>
+        <asp:RequiredFieldValidator 
+        ID="rfvTitle" 
+        runat="server" 
+        ControlToValidate="txtTitle" 
+        ErrorMessage="Pavadinimas yra privalomas!" 
+        CssClass="text-danger"
+        CausesValidation="true"
+        ValidationGroup="AddBookGroup" />
+        <br />
         <asp:TextBox ID="txtAuthor" runat="server" Placeholder="Autorius" CssClass="form-control"></asp:TextBox><br />
         <asp:TextBox ID="txtYear" runat="server" Placeholder="Metai" CssClass="form-control"></asp:TextBox><br />
         <asp:TextBox ID="txtDescription" runat="server" TextMode="MultiLine" Rows="3" Placeholder="Aprašymas" CssClass="form-control"></asp:TextBox><br />
         <asp:CheckBox ID="chkIsInStock" runat="server" Text="Yra sandėlyje" /><br /><br />
-        <asp:Button ID="btnAddBook" runat="server" Text="Išsaugoti" CssClass="btn btn-success" OnClick="btnAddBook_Click" />
+        <asp:Button 
+            ID="btnAddBook" 
+            runat="server" 
+            Text="Išsaugoti" 
+            CssClass="btn btn-success" 
+            OnClick="btnAddBook_Click"
+            CausesValidation="true"
+            ValidationGroup="AddBookGroup" 
+         />
         <asp:Button ID="btnCancelAdd" runat="server" Text="Atšaukti" CssClass="btn btn-secondary" OnClick="btnCancelAdd_Click" />
     </asp:Panel>
 
