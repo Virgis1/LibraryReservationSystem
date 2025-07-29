@@ -42,16 +42,13 @@ namespace LibraryReservationSystem
         {
             var books = BookRepository.GetBooks();
 
-            // Apply sorting
             books = (SortDirection == "ASC")
                 ? books.OrderBy(b => GetPropertyValue(b, SortExpression)).ToList()
                 : books.OrderByDescending(b => GetPropertyValue(b, SortExpression)).ToList();
 
-            // Bind the full list
             lvBooks.DataSource = books;
             lvBooks.DataBind();
 
-            // Set DataPager PageSize dynamically
             var dpBooks = lvBooks.FindControl("dpBooks") as DataPager;
             if (dpBooks != null)
             {

@@ -36,7 +36,9 @@
         <ItemTemplate>
             <tr>
                 <td><a href='<%# "BookDetails.aspx?id=" + Eval("Id") %>'><%# Eval("Title") %></a></td>
-                <td><%# Eval("Author") %></td>
+                <td><a href='<%# "Details2.aspx?id=" + Eval("Id") %>'>
+                        <%# Eval("Author") %>
+                    </a></td>
                 <td><%# Eval("Year") %></td>
             </tr>
         </ItemTemplate>
