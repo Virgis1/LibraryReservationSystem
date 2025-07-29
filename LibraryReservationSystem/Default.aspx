@@ -10,6 +10,23 @@
         <uc:BookCount ID="BookCount1" runat="server" />
     </div>
 
+    <asp:Button ID="btnShowAddForm" runat="server" Text="Pridėti naują knygą"
+        CssClass="btn btn-primary" OnClick="btnShowAddForm_Click" />
+
+    <br /><br />
+
+    <asp:Panel ID="pnlAddBookForm" runat="server" Visible="false">
+        <asp:TextBox ID="txtTitle" runat="server" Placeholder="Pavadinimas" CssClass="form-control"></asp:TextBox><br />
+        <asp:TextBox ID="txtAuthor" runat="server" Placeholder="Autorius" CssClass="form-control"></asp:TextBox><br />
+        <asp:TextBox ID="txtYear" runat="server" Placeholder="Metai" CssClass="form-control"></asp:TextBox><br />
+        <asp:TextBox ID="txtDescription" runat="server" TextMode="MultiLine" Rows="3" Placeholder="Aprašymas" CssClass="form-control"></asp:TextBox><br />
+        <asp:CheckBox ID="chkIsInStock" runat="server" Text="Yra sandėlyje" /><br /><br />
+        <asp:Button ID="btnAddBook" runat="server" Text="Išsaugoti" CssClass="btn btn-success" OnClick="btnAddBook_Click" />
+        <asp:Button ID="btnCancelAdd" runat="server" Text="Atšaukti" CssClass="btn btn-secondary" OnClick="btnCancelAdd_Click" />
+    </asp:Panel>
+
+    <hr />
+
     <asp:ListView ID="lvBooks" runat="server"
         OnPagePropertiesChanging="lvBooks_PagePropertiesChanging"
         OnSorting="lvBooks_Sorting"
@@ -36,9 +53,7 @@
         <ItemTemplate>
             <tr>
                 <td><a href='<%# "BookDetails.aspx?id=" + Eval("Id") %>'><%# Eval("Title") %></a></td>
-                <td><a href='<%# "Details2.aspx?id=" + Eval("Id") %>'>
-                        <%# Eval("Author") %>
-                    </a></td>
+                <td><a href='<%# "Details2.aspx?id=" + Eval("Id") %>'><%# Eval("Author") %></a></td>
                 <td><%# Eval("Year") %></td>
             </tr>
         </ItemTemplate>

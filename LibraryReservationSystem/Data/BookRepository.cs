@@ -36,5 +36,13 @@ namespace LibraryReservationSystem.Data
                 book.IsInStock = updatedBook.IsInStock;
             }
         }
+
+        public static void AddBook(Book newBook)
+        {
+            int nextId = _books.Count > 0 ? _books.Max(b => b.Id) + 1 : 1;
+            newBook.Id = nextId;
+
+            _books.Add(newBook);
+        }
     }
 }

@@ -83,5 +83,46 @@ namespace LibraryReservationSystem
 
             BindBooks();
         }
+
+        protected void btnShowAddForm_Click(object sender, EventArgs e)
+        {
+            pnlAddBookForm.Visible = true;
+            btnShowAddForm.Visible = false;
+        }
+
+        protected void btnAddBook_Click(object sender, EventArgs e)
+        {
+            var newBook = new LibraryReservationSystem.Business.Book
+            {
+                Title = txtTitle.Text.Trim(),
+                Author = txtAuthor.Text.Trim(),
+                Year = int.TryParse(txtYear.Text.Trim(), out int y) ? y : DateTime.Now.Year,
+                Description = txtDescription.Text.Trim(),
+                IsInStock = chkIsInStock.Checked
+            };
+
+            BookRepository.AddBook(newBook);
+
+            pnlAddBookForm.Visible = false;
+            btnShowAddForm.Visible = true;
+            ClearForm();
+            BindBooks();
+        }
+
+        protected void btnCancelAdd_Click(object sender, EventArgs e)
+        {
+            pnlAddBookForm.Visible = false;
+            btnShowAddForm.Visible = true;
+            ClearForm();
+        }
+
+        private void ClearForm()
+        {
+            txtTitle.Text = "";
+            txtAuthor.Text = "";
+            txtYear.Text = "";
+            txtDescription.Text = "";
+            chkIsInStock.Checked = false;
+        }
     }
 }
