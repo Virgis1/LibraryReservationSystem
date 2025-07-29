@@ -12,7 +12,7 @@ namespace LibraryReservationSystem.Controls
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack) // Optional, but prevents reloading every time
+            if (!IsPostBack)
             {
                 var books = BookRepository.GetBooks();
                 lblBookCount.Text = "Knygų skaičius: " + books.Count;

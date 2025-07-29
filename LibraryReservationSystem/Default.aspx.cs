@@ -1,5 +1,6 @@
 ﻿using LibraryReservationSystem.Data;
 using System;
+using System.Configuration;
 using System.Linq;
 using System.Web.UI.WebControls;
 
@@ -19,6 +20,16 @@ namespace LibraryReservationSystem
             set => ViewState["SortDirection"] = value;
         }
 
+        private int ItemsPerPage
+        {
+            get
+            {
+                int pageSize = 5;
+                int.TryParse(ConfigurationManager.AppSettings["BooksPageSize"], out pageSize);
+                return pageSize;
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -31,17 +42,21 @@ namespace LibraryReservationSystem
         {
             var books = BookRepository.GetBooks();
 
-            if (SortDirection == "ASC")
-            {
-                books = books.OrderBy(b => GetPropertyValue(b, SortExpression)).ToList();
-            }
-            else
-            {
-                books = books.OrderByDescending(b => GetPropertyValue(b, SortExpression)).ToList();
-            }
+            // Apply sorting
+            books = (SortDirection == "ASC")
+                ? books.OrderBy(b => GetPropertyValue(b, SortExpression)).ToList()
+                : books.OrderByDescending(b => GetPropertyValue(b, SortExpression)).ToList();
 
+            // Bind the full list
             lvBooks.DataSource = books;
             lvBooks.DataBind();
+
+            // Set DataPager PageSize dynamically
+            var dpBooks = lvBooks.FindControl("dpBooks") as DataPager;
+            if (dpBooks != null)
+            {
+                dpBooks.PageSize = ItemsPerPage;
+            }
         }
 
         private object GetPropertyValue(object obj, string propertyName)
@@ -51,7 +66,7 @@ namespace LibraryReservationSystem
 
         protected void lvBooks_PagePropertiesChanging(object sender, PagePropertiesChangingEventArgs e)
         {
-            DataPager dpBooks = lvBooks.FindControl("dpBooks") as DataPager;
+            var dpBooks = lvBooks.FindControl("dpBooks") as DataPager;
             if (dpBooks != null)
             {
                 dpBooks.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
@@ -62,9 +77,7 @@ namespace LibraryReservationSystem
         protected void lvBooks_Sorting(object sender, ListViewSortEventArgs e)
         {
             if (SortExpression == e.SortExpression)
-            {
                 SortDirection = (SortDirection == "ASC") ? "DESC" : "ASC";
-            }
             else
             {
                 SortExpression = e.SortExpression;
