@@ -8,7 +8,25 @@ namespace LibraryReservationSystem
 {
     public partial class _Default : System.Web.UI.Page
     {
-        private readonly IBookRepository _repository = new InMemoryBookRepository();
+        // Make repository static to reuse same instance across page requests
+        // This avoids reloading from file and prevents duplicate additions on refresh
+        private static readonly IBookRepository _repository;
+
+        // Static constructor initializes repository once when app domain loads
+        static _Default()
+        {
+            string repoType = ConfigurationManager.AppSettings["RepositoryType"];
+
+            if (!string.IsNullOrEmpty(repoType) && repoType.Equals("File", StringComparison.OrdinalIgnoreCase))
+            {
+                _repository = new FileBookRepository();
+            }
+            else
+            {
+                _repository = new InMemoryBookRepository();
+            }
+        }
+
         private string SortExpression
         {
             get => ViewState["SortExpression"] as string ?? "Title";
@@ -49,11 +67,10 @@ namespace LibraryReservationSystem
             {
                 rfvTitle.ErrorMessage = GetLocalResourceObject("TitleRequired")?.ToString() ?? rfvTitle.ErrorMessage;
 
-                BindBooks(true); // ✅ CHANGED: Reset to first page only on initial load
+                BindBooks(true);
             }
         }
 
-        // ✅ CHANGED: Added parameter resetPageIndex to control when we reset to page 1
         private void BindBooks(bool resetPageIndex = false)
         {
             var books = _repository.GetBooks();
@@ -86,7 +103,7 @@ namespace LibraryReservationSystem
 
                 if (resetPageIndex)
                 {
-                    dpBooks.SetPageProperties(0, ItemsPerPage, true); // ✅ only reset if requested
+                    dpBooks.SetPageProperties(0, ItemsPerPage, true);
                 }
             }
         }
@@ -103,7 +120,7 @@ namespace LibraryReservationSystem
             {
                 dpBooks.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
             }
-            BindBooks(); // ✅ CHANGED: No reset on paging
+            BindBooks();
         }
 
         protected void lvBooks_Sorting(object sender, ListViewSortEventArgs e)
@@ -116,7 +133,7 @@ namespace LibraryReservationSystem
                 SortDirection = "ASC";
             }
 
-            BindBooks(); // ✅ CHANGED: Don't reset page index when sorting
+            BindBooks();
         }
 
         protected void btnShowAddForm_Click(object sender, EventArgs e)
@@ -141,11 +158,15 @@ namespace LibraryReservationSystem
 
             _repository.AddBook(newBook);
 
+            // Hide add form and clear UI
             pnlAddBookForm.Visible = false;
             btnShowAddForm.Visible = true;
             ClearForm();
-            BindBooks(true); // ✅ CHANGED: After adding, always go back to first page
+
+            // Redirect to same page to prevent duplicate form submission on refresh
+            Response.Redirect(Request.Url.AbsoluteUri);
         }
+
 
         protected void btnCancelAdd_Click(object sender, EventArgs e)
         {

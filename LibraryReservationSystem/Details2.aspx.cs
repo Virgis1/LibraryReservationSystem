@@ -1,5 +1,6 @@
 ﻿using LibraryReservationSystem.Data;
 using System;
+using System.Configuration;
 using System.Linq;
 using System.Web.UI.WebControls;
 
@@ -7,7 +8,22 @@ namespace LibraryReservationSystem
 {
     public partial class Details2 : System.Web.UI.Page
     {
-        private readonly IBookRepository _repository = new InMemoryBookRepository();
+        private readonly IBookRepository _repository;
+
+        // Constructor to choose repository implementation based on config
+        public Details2()
+        {
+            string repoType = ConfigurationManager.AppSettings["RepositoryType"];
+            if (!string.IsNullOrEmpty(repoType) && repoType.Equals("File", StringComparison.OrdinalIgnoreCase))
+            {
+                _repository = new FileBookRepository();
+            }
+            else
+            {
+                _repository = new InMemoryBookRepository();
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)

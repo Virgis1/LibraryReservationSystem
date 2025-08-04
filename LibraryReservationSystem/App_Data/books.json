@@ -1,0 +1,34 @@
+[
+  {
+    "Id": 1,
+    "Title": "test",
+    "Author": "test",
+    "Description": "testas",
+    "Year": 2025,
+    "IsInStock": true
+  },
+  {
+    "Id": 2,
+    "Title": "test1",
+    "Author": "test1",
+    "Description": "testas1",
+    "Year": 2025,
+    "IsInStock": true
+  },
+  {
+    "Id": 3,
+    "Title": "kazkas1",
+    "Author": "kazkas",
+    "Description": "kazkas",
+    "Year": 2020,
+    "IsInStock": true
+  },
+  {
+    "Id": 4,
+    "Title": "kazkas2",
+    "Author": "kazkas2",
+    "Description": "kazkas2",
+    "Year": 2023,
+    "IsInStock": false
+  }
+]

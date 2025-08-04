@@ -1,19 +1,34 @@
 ﻿using LibraryReservationSystem.Business;
 using LibraryReservationSystem.Data;
 using System;
+using System.Configuration;
 using System.Linq;
 
 namespace LibraryReservationSystem
 {
     public partial class BookDetails : System.Web.UI.Page
     {
-        private readonly IBookRepository _repository = new InMemoryBookRepository();
+        private readonly IBookRepository _repository;
+
+        // Constructor to initialize repository based on Web.config setting
+        public BookDetails()
+        {
+            string repoType = ConfigurationManager.AppSettings["RepositoryType"];
+            if (!string.IsNullOrEmpty(repoType) && repoType.Equals("File", StringComparison.OrdinalIgnoreCase))
+            {
+                _repository = new FileBookRepository();
+            }
+            else
+            {
+                _repository = new InMemoryBookRepository();
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                int id;
-                if (int.TryParse(Request.QueryString["id"], out id))
+                if (int.TryParse(Request.QueryString["id"], out int id))
                 {
                     var book = _repository.GetBooks().FirstOrDefault(b => b.Id == id);
                     if (book != null)
