@@ -31,12 +31,11 @@ namespace LibraryReservationSystem
             }
         }
 
-        // Set culture early in page lifecycle for localization
         protected override void InitializeCulture()
         {
             string selectedCulture = Request.UserLanguages != null && Request.UserLanguages.Length > 0
                 ? Request.UserLanguages[0]
-                : "lt-LT"; // default to Lithuanian
+                : "lt-LT";
 
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(selectedCulture);
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(selectedCulture);
@@ -48,14 +47,14 @@ namespace LibraryReservationSystem
         {
             if (!IsPostBack)
             {
-                // Localize validation error messages from resource
                 rfvTitle.ErrorMessage = GetLocalResourceObject("TitleRequired")?.ToString() ?? rfvTitle.ErrorMessage;
 
-                BindBooks();
+                BindBooks(true); // ✅ CHANGED: Reset to first page only on initial load
             }
         }
 
-        private void BindBooks()
+        // ✅ CHANGED: Added parameter resetPageIndex to control when we reset to page 1
+        private void BindBooks(bool resetPageIndex = false)
         {
             var books = _repository.GetBooks();
 
@@ -63,6 +62,18 @@ namespace LibraryReservationSystem
                 ? books.OrderBy(b => GetPropertyValue(b, SortExpression)).ToList()
                 : books.OrderByDescending(b => GetPropertyValue(b, SortExpression)).ToList();
 
+            if (books.Count == 0)
+            {
+                lvBooks.DataSource = null;
+                lvBooks.DataBind();
+
+                var dpBooksEmpty = lvBooks.FindControl("dpBooks") as DataPager;
+                if (dpBooksEmpty != null)
+                {
+                    dpBooksEmpty.Visible = false;
+                }
+                return;
+            }
 
             lvBooks.DataSource = books;
             lvBooks.DataBind();
@@ -71,6 +82,12 @@ namespace LibraryReservationSystem
             if (dpBooks != null)
             {
                 dpBooks.PageSize = ItemsPerPage;
+                dpBooks.Visible = true;
+
+                if (resetPageIndex)
+                {
+                    dpBooks.SetPageProperties(0, ItemsPerPage, true); // ✅ only reset if requested
+                }
             }
         }
 
@@ -86,7 +103,7 @@ namespace LibraryReservationSystem
             {
                 dpBooks.SetPageProperties(e.StartRowIndex, e.MaximumRows, false);
             }
-            BindBooks();
+            BindBooks(); // ✅ CHANGED: No reset on paging
         }
 
         protected void lvBooks_Sorting(object sender, ListViewSortEventArgs e)
@@ -99,7 +116,7 @@ namespace LibraryReservationSystem
                 SortDirection = "ASC";
             }
 
-            BindBooks();
+            BindBooks(); // ✅ CHANGED: Don't reset page index when sorting
         }
 
         protected void btnShowAddForm_Click(object sender, EventArgs e)
@@ -127,7 +144,7 @@ namespace LibraryReservationSystem
             pnlAddBookForm.Visible = false;
             btnShowAddForm.Visible = true;
             ClearForm();
-            BindBooks();
+            BindBooks(true); // ✅ CHANGED: After adding, always go back to first page
         }
 
         protected void btnCancelAdd_Click(object sender, EventArgs e)

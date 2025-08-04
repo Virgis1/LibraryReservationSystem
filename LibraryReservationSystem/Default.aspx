@@ -83,5 +83,10 @@
                 <td><%# Eval("Year") %></td>
             </tr>
         </ItemTemplate>
+        <EmptyDataTemplate>
+        <div style="padding: 10px; font-weight: bold; color: red;">
+            Knygų šiuo metu nėra
+        </div>
+    </EmptyDataTemplate>
     </asp:ListView>
 </asp:Content>
