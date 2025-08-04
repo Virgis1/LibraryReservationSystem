@@ -8,6 +8,7 @@ namespace LibraryReservationSystem
 {
     public partial class _Default : System.Web.UI.Page
     {
+        private readonly IBookRepository _repository = new InMemoryBookRepository();
         private string SortExpression
         {
             get => ViewState["SortExpression"] as string ?? "Title";
@@ -30,21 +31,38 @@ namespace LibraryReservationSystem
             }
         }
 
+        // Set culture early in page lifecycle for localization
+        protected override void InitializeCulture()
+        {
+            string selectedCulture = Request.UserLanguages != null && Request.UserLanguages.Length > 0
+                ? Request.UserLanguages[0]
+                : "lt-LT"; // default to Lithuanian
+
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(selectedCulture);
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(selectedCulture);
+
+            base.InitializeCulture();
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                // Localize validation error messages from resource
+                rfvTitle.ErrorMessage = GetLocalResourceObject("TitleRequired")?.ToString() ?? rfvTitle.ErrorMessage;
+
                 BindBooks();
             }
         }
 
         private void BindBooks()
         {
-            var books = BookRepository.GetBooks();
+            var books = _repository.GetBooks();
 
             books = (SortDirection == "ASC")
                 ? books.OrderBy(b => GetPropertyValue(b, SortExpression)).ToList()
                 : books.OrderByDescending(b => GetPropertyValue(b, SortExpression)).ToList();
+
 
             lvBooks.DataSource = books;
             lvBooks.DataBind();
@@ -104,7 +122,7 @@ namespace LibraryReservationSystem
                 IsInStock = chkIsInStock.Checked
             };
 
-            BookRepository.AddBook(newBook);
+            _repository.AddBook(newBook);
 
             pnlAddBookForm.Visible = false;
             btnShowAddForm.Visible = true;

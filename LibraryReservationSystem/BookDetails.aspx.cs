@@ -7,6 +7,7 @@ namespace LibraryReservationSystem
 {
     public partial class BookDetails : System.Web.UI.Page
     {
+        private readonly IBookRepository _repository = new InMemoryBookRepository();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -14,7 +15,7 @@ namespace LibraryReservationSystem
                 int id;
                 if (int.TryParse(Request.QueryString["id"], out id))
                 {
-                    var book = BookRepository.GetBooks().FirstOrDefault(b => b.Id == id);
+                    var book = _repository.GetBooks().FirstOrDefault(b => b.Id == id);
                     if (book != null)
                     {
                         lblTitle.Text = book.Title;

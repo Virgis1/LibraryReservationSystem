@@ -7,6 +7,7 @@ namespace LibraryReservationSystem
 {
     public partial class Details2 : System.Web.UI.Page
     {
+        private readonly IBookRepository _repository = new InMemoryBookRepository();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -19,7 +20,7 @@ namespace LibraryReservationSystem
         {
             if (int.TryParse(Request.QueryString["id"], out int id))
             {
-                var book = BookRepository.GetBooks().FirstOrDefault(b => b.Id == id);
+                var book = _repository.GetBooks().FirstOrDefault(b => b.Id == id);
                 if (book != null)
                 {
                     dvBook.DataSource = new[] { book };
@@ -45,14 +46,14 @@ namespace LibraryReservationSystem
                 CheckBox chkIsInStock = (CheckBox)dvBook.FindControl("chkIsInStock");
 
                 int id = int.Parse(Request.QueryString["id"]);
-                var book = BookRepository.GetBooks().FirstOrDefault(b => b.Id == id);
+                var book = _repository.GetBooks().FirstOrDefault(b => b.Id == id);
                 if (book != null)
                 {
                     book.Title = txtTitle.Text;
                     book.Description = txtDescription.Text;
                     book.IsInStock = chkIsInStock.Checked;
 
-                    BookRepository.UpdateBook(book);
+                    _repository.UpdateBook(book);
 
                     dvBook.ChangeMode(DetailsViewMode.ReadOnly);
                     btnEdit.Visible = true;

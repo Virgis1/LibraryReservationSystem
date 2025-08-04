@@ -1,22 +1,31 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master"
-    AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="LibraryReservationSystem._Default" %>
+    AutoEventWireup="true" CodeBehind="Default.aspx.cs" 
+    Inherits="LibraryReservationSystem._Default"
+    UICulture="auto" Culture="auto" %>
 
 <%@ Register TagPrefix="uc" TagName="BookCount" Src="~/Controls/BookCount.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>Visos prieinamos knygos</h2>
+    <h2>
+        <asp:Literal ID="litPageHeader" runat="server" 
+             Text="<%$ Resources: PageHeader %>"></asp:Literal>
+    </h2>
+    <p>Pakeisti kalbą:</p>
+    <p>
+        <a href="?lang=lt-LT">Lietuvių</a> | <a href="?lang=en-US">English</a>
+    </p>
 
     <div class="book-count">
         <uc:BookCount ID="BookCount1" runat="server" />
     </div>
 
-    <asp:Button ID="btnShowAddForm" runat="server" Text="Pridėti naują knygą"
+    <asp:Button ID="btnShowAddForm" runat="server" Text="<%$ Resources:AddBook %>"
         CssClass="btn btn-primary" OnClick="btnShowAddForm_Click" />
 
     <br /><br />
 
     <asp:Panel ID="pnlAddBookForm" runat="server" Visible="false">
-        <asp:TextBox ID="txtTitle" runat="server" Placeholder="Pavadinimas" CssClass="form-control"></asp:TextBox>
+        <asp:TextBox ID="txtTitle" runat="server" Placeholder="<%$ Resources:Title %>" CssClass="form-control"></asp:TextBox>
         <asp:RequiredFieldValidator 
         ID="rfvTitle" 
         runat="server" 
@@ -26,8 +35,8 @@
         CausesValidation="true"
         ValidationGroup="AddBookGroup" />
         <br />
-        <asp:TextBox ID="txtAuthor" runat="server" Placeholder="Autorius" CssClass="form-control"></asp:TextBox><br />
-        <asp:TextBox ID="txtYear" runat="server" Placeholder="Metai" CssClass="form-control"></asp:TextBox><br />
+        <asp:TextBox ID="txtAuthor" runat="server" Placeholder="<%$ Resources:Author %>" CssClass="form-control"></asp:TextBox><br />
+        <asp:TextBox ID="txtYear" runat="server" Placeholder="<%$ Resources:Year %>" CssClass="form-control"></asp:TextBox><br />
         <asp:TextBox ID="txtDescription" runat="server" TextMode="MultiLine" Rows="3" Placeholder="Aprašymas" CssClass="form-control"></asp:TextBox><br />
         <asp:CheckBox ID="chkIsInStock" runat="server" Text="Yra sandėlyje" /><br /><br />
         <asp:Button 

@@ -10,11 +10,12 @@ namespace LibraryReservationSystem.Controls
 {
     public partial class BookCount : System.Web.UI.UserControl
     {
+        private readonly IBookRepository _repository = new InMemoryBookRepository();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                var books = BookRepository.GetBooks();
+                var books = _repository.GetBooks();
                 lblBookCount.Text = "Knygų skaičius: " + books.Count;
             }
         }

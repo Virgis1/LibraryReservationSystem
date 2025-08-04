@@ -4,7 +4,7 @@ using LibraryReservationSystem.Business;
 
 namespace LibraryReservationSystem.Data
 {
-    public static class BookRepository
+    public class InMemoryBookRepository : IBookRepository
     {
         private static IList<Book> _books = new List<Book>
         {
@@ -19,12 +19,12 @@ namespace LibraryReservationSystem.Data
             new Book { Id = 8, Title = "LEBRONAS", Author = "Jeff Benedict", Year = 2025, Description = "NEW YORK TIMES BESTSELERIS..." , IsInStock = false }
         };
 
-        public static IList<Book> GetBooks()
+        public IList<Book> GetBooks()
         {
             return _books;
         }
 
-        public static void UpdateBook(Book updatedBook)
+        public void UpdateBook(Book updatedBook)
         {
             var book = _books.FirstOrDefault(b => b.Id == updatedBook.Id);
             if (book != null)
@@ -37,11 +37,10 @@ namespace LibraryReservationSystem.Data
             }
         }
 
-        public static void AddBook(Book newBook)
+        public void AddBook(Book newBook)
         {
             int nextId = _books.Count > 0 ? _books.Max(b => b.Id) + 1 : 1;
             newBook.Id = nextId;
-
             _books.Add(newBook);
         }
     }

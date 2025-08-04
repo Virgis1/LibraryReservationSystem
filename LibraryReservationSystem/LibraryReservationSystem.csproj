@@ -214,7 +214,8 @@
     <Compile Include="Controls\BookCount.ascx.designer.cs">
       <DependentUpon>BookCount.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Data\BookRepository.cs" />
+    <Compile Include="Data\IBookRepository.cs" />
+    <Compile Include="Data\InMemoryBookRepository.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -271,6 +272,12 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_LocalResources\Default.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_LocalResources\Default.aspx.en-US.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
