@@ -24,6 +24,21 @@
 
     <br /><br />
 
+    <%--<asp:Panel ID="pnlSearch" runat="server" DefaultButton="btnSearch">
+    <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control" 
+        Placeholder="Įveskite žodį"></asp:TextBox>
+    <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-info"
+        OnClick="btnSearch_Click" />
+    <asp:Button ID="btnClearSearch" runat="server" Text="Clear" CssClass="btn btn-secondary"
+        OnClick="btnClearSearch_Click" />
+</asp:Panel>--%>
+
+    <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control" 
+    Placeholder="Įveskite paieškos žodį" 
+    AutoPostBack="true" 
+    OnTextChanged="txtSearch_TextChanged">
+</asp:TextBox>
+
     <asp:Panel ID="pnlAddBookForm" runat="server" Visible="false">
         <asp:TextBox ID="txtTitle" runat="server" Placeholder="<%$ Resources:Title %>" CssClass="form-control"></asp:TextBox>
         <asp:RequiredFieldValidator 

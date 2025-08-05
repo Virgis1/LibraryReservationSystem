@@ -89,6 +89,19 @@ namespace LibraryReservationSystem
         {
             var books = _repository.GetBooks();
 
+            // ✅ Filter results if search text entered
+            if (!string.IsNullOrWhiteSpace(txtSearch.Text))
+            {
+                string searchTerm = txtSearch.Text.Trim().ToLower();
+                books = books
+                    .Where(b =>
+                        (!string.IsNullOrEmpty(b.Title) && b.Title.ToLower().Contains(searchTerm)) ||
+                        (!string.IsNullOrEmpty(b.Author) && b.Author.ToLower().Contains(searchTerm)) ||
+                        b.Year.ToString().Contains(searchTerm))
+                    .ToList();
+            }
+
+            // ✅ Apply sorting
             books = (SortDirection == "ASC")
                 ? books.OrderBy(b => GetPropertyValue(b, SortExpression)).ToList()
                 : books.OrderByDescending(b => GetPropertyValue(b, SortExpression)).ToList();
@@ -121,6 +134,7 @@ namespace LibraryReservationSystem
                 }
             }
         }
+
 
         private object GetPropertyValue(object obj, string propertyName)
         {
@@ -195,5 +209,36 @@ namespace LibraryReservationSystem
             txtDescription.Text = "";
             chkIsInStock.Checked = false;
         }
+
+        //protected void btnSearch_Click(object sender, EventArgs e)
+        //{
+        //    BindBooks(true);
+        //}
+
+        //protected void btnClearSearch_Click(object sender, EventArgs e)
+        //{
+        //    txtSearch.Text = string.Empty;
+        //    BindBooks(true);
+        //}
+
+        protected void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            string searchText = txtSearch.Text.Trim().ToLower();
+
+            var books = _repository.GetBooks()
+                .Where(b =>
+                    (!string.IsNullOrEmpty(b.Title) && b.Title.ToLower().Contains(searchText)) ||
+                    (!string.IsNullOrEmpty(b.Author) && b.Author.ToLower().Contains(searchText)) ||
+                    (b.Year.ToString().Contains(searchText))
+                )
+                .ToList();
+
+            lvBooks.DataSource = books;
+            lvBooks.DataBind();
+        }
+
+
     }
+
+
 }
