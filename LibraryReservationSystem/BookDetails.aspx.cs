@@ -10,7 +10,6 @@ namespace LibraryReservationSystem
     {
         private readonly IBookRepository _repository;
 
-        // Constructor to initialize repository based on Web.config setting
         public BookDetails()
         {
             string repoType = ConfigurationManager.AppSettings["RepositoryType"];

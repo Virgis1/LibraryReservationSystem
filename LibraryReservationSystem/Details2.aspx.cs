@@ -10,7 +10,6 @@ namespace LibraryReservationSystem
     {
         private readonly IBookRepository _repository;
 
-        // Constructor to choose repository implementation based on config
         public Details2()
         {
             string repoType = ConfigurationManager.AppSettings["RepositoryType"];

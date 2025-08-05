@@ -8,11 +8,9 @@ namespace LibraryReservationSystem
 {
     public partial class _Default : System.Web.UI.Page
     {
-        // Make repository static to reuse same instance across page requests
-        // This avoids reloading from file and prevents duplicate additions on refresh
+
         private static readonly IBookRepository _repository;
 
-        // Static constructor initializes repository once when app domain loads
         static _Default()
         {
             string repoType = ConfigurationManager.AppSettings["RepositoryType"];
@@ -51,15 +49,31 @@ namespace LibraryReservationSystem
 
         protected override void InitializeCulture()
         {
-            string selectedCulture = Request.UserLanguages != null && Request.UserLanguages.Length > 0
-                ? Request.UserLanguages[0]
-                : "lt-LT";
+            string selectedCulture = Request.QueryString["lang"];
 
-            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(selectedCulture);
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(selectedCulture);
+            if (string.IsNullOrEmpty(selectedCulture))
+            {
+                selectedCulture = Request.UserLanguages != null && Request.UserLanguages.Length > 0
+                    ? Request.UserLanguages[0]
+                    : "lt-LT";
+            }
+
+            try
+            {
+                var cultureInfo = new System.Globalization.CultureInfo(selectedCulture);
+                System.Threading.Thread.CurrentThread.CurrentCulture = cultureInfo;
+                System.Threading.Thread.CurrentThread.CurrentUICulture = cultureInfo;
+            }
+            catch
+            {
+                var ci = new System.Globalization.CultureInfo("lt-LT");
+                System.Threading.Thread.CurrentThread.CurrentCulture = ci;
+                System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
+            }
 
             base.InitializeCulture();
         }
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -158,12 +172,10 @@ namespace LibraryReservationSystem
 
             _repository.AddBook(newBook);
 
-            // Hide add form and clear UI
             pnlAddBookForm.Visible = false;
             btnShowAddForm.Visible = true;
             ClearForm();
 
-            // Redirect to same page to prevent duplicate form submission on refresh
             Response.Redirect(Request.Url.AbsoluteUri);
         }
 

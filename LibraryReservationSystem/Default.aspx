@@ -12,7 +12,7 @@
     </h2>
     <p>Pakeisti kalbą:</p>
     <p>
-        <a href="?lang=lt-LT">Lietuvių</a> | <a href="?lang=en-US">English</a>
+        <a href="?lang=lt-LT">Lietuvių</a> | <a href="?lang=en-US">English</a> | <a href="?lang=fr-FR">France</a>
     </p>
 
     <div class="book-count">
@@ -20,7 +20,7 @@
     </div>
 
     <asp:Button ID="btnShowAddForm" runat="server" Text="<%$ Resources:AddBook %>"
-        CssClass="btn btn-primary" OnClick="btnShowAddForm_Click" />
+        CssClass="btn btn-primary" OnClick="btnShowAddForm_Click" /> 
 
     <br /><br />
 
@@ -35,8 +35,8 @@
         CausesValidation="true"
         ValidationGroup="AddBookGroup" />
         <br />
-        <asp:TextBox ID="txtAuthor" runat="server" Placeholder="<%$ Resources:Author %>" CssClass="form-control"></asp:TextBox><br />
-        <asp:TextBox ID="txtYear" runat="server" Placeholder="<%$ Resources:Year %>" CssClass="form-control"></asp:TextBox><br />
+        <asp:TextBox ID="txtAuthor" runat="server" Placeholder="Autorius" CssClass="form-control"></asp:TextBox><br />
+        <asp:TextBox ID="txtYear" runat="server" Placeholder="Metai" CssClass="form-control"></asp:TextBox><br />
         <asp:TextBox ID="txtDescription" runat="server" TextMode="MultiLine" Rows="3" Placeholder="Aprašymas" CssClass="form-control"></asp:TextBox><br />
         <asp:CheckBox ID="chkIsInStock" runat="server" Text="Yra sandėlyje" /><br /><br />
         <asp:Button 
@@ -61,9 +61,11 @@
             <table class="datagrid-custom">
                 <thead style="background-color: #004080; color: white; font-weight: bold;">
                     <tr>
-                        <th><asp:LinkButton ID="lnkSortTitle" runat="server" CommandName="Sort" CommandArgument="Title">Pavadinimas</asp:LinkButton></th>
-                        <th><asp:LinkButton ID="lnkSortAuthor" runat="server" CommandName="Sort" CommandArgument="Author">Autorius</asp:LinkButton></th>
-                        <th><asp:LinkButton ID="lnkSortYear" runat="server" CommandName="Sort" CommandArgument="Year">Metai</asp:LinkButton></th>
+                        <th>
+                            <asp:LinkButton ID="lnkSortTitle" runat="server" CommandName="Sort" CommandArgument="Title" meta:resourcekey="Title" />
+                        </th>
+                        <th><asp:LinkButton ID="LinkSortAuthor" runat="server" CommandName="Sort" CommandArgument="Author" meta:resourcekey="Author" /></th>
+                        <th><asp:LinkButton ID="LinkSortYear" runat="server" CommandName="Sort" CommandArgument="Year" meta:resourcekey="Year" /></th>
                     </tr>
                 </thead>
                 <tbody>

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Web;
-using System.Web.Optimization;
-using System.Web.Routing;
 
 namespace LibraryReservationSystem
 {
@@ -9,7 +7,7 @@ namespace LibraryReservationSystem
     {
         protected void Application_Start(object sender, EventArgs e)
         {
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+            BundleConfig.RegisterBundles(System.Web.Optimization.BundleTable.Bundles);
             BundleConfig.RegisterJQueryScriptManager();
             RouteConfig.RegisterRoutes(System.Web.Routing.RouteTable.Routes);
         }
@@ -17,7 +15,7 @@ namespace LibraryReservationSystem
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             string lang = HttpContext.Current.Request.QueryString["lang"];
-            var culture = string.IsNullOrEmpty(lang) ? "lt-LT" : lang;
+            string culture = string.IsNullOrEmpty(lang) ? "lt-LT" : lang;
 
             try
             {
@@ -27,6 +25,7 @@ namespace LibraryReservationSystem
             }
             catch
             {
+                // Fallback to Lithuanian if invalid culture provided
                 var ci = new System.Globalization.CultureInfo("lt-LT");
                 System.Threading.Thread.CurrentThread.CurrentCulture = ci;
                 System.Threading.Thread.CurrentThread.CurrentUICulture = ci;

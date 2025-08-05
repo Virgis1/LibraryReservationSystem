@@ -17,9 +17,9 @@
   },
   {
     "Id": 3,
-    "Title": "kazkas1",
+    "Title": "kazkas11",
     "Author": "kazkas",
-    "Description": "kazkas",
+    "Description": "kazkas11",
     "Year": 2020,
     "IsInStock": true
   },
@@ -30,5 +30,13 @@
     "Description": "kazkas2",
     "Year": 2023,
     "IsInStock": false
+  },
+  {
+    "Id": 5,
+    "Title": "test2",
+    "Author": "tst2",
+    "Description": "test2",
+    "Year": 2025,
+    "IsInStock": true
   }
 ]
