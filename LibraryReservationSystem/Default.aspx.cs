@@ -87,6 +87,12 @@ namespace LibraryReservationSystem
                 rfvTitle.ErrorMessage = GetLocalResourceObject("TitleRequired")?.ToString() ?? rfvTitle.ErrorMessage;
 
                 BindBooks(true);
+                txtSearch.Visible = true;
+            }
+            else
+            {
+                if (ViewState["ShowSearch"] != null)
+                    txtSearch.Visible = (bool)ViewState["ShowSearch"];
             }
         }
 
@@ -171,6 +177,8 @@ namespace LibraryReservationSystem
         {
             pnlAddBookForm.Visible = true;
             btnShowAddForm.Visible = false;
+            txtSearch.Visible = false;
+            ViewState["ShowSearch"] = false;
         }
 
         protected void btnAddBook_Click(object sender, EventArgs e)
@@ -194,6 +202,7 @@ namespace LibraryReservationSystem
             ClearForm();
 
             Response.Redirect(Request.Url.AbsoluteUri);
+            txtSearch.Visible = true;
         }
 
 
@@ -201,6 +210,8 @@ namespace LibraryReservationSystem
         {
             pnlAddBookForm.Visible = false;
             btnShowAddForm.Visible = true;
+            txtSearch.Visible = true;
+            ViewState["ShowSearch"] = true;
             ClearForm();
         }
 
