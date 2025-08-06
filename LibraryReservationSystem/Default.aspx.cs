@@ -13,21 +13,7 @@ namespace LibraryReservationSystem
 
         static _Default()
         {
-            string repoType = ConfigurationManager.AppSettings["RepositoryType"];
-
-            if (!string.IsNullOrEmpty(repoType) && repoType.Equals("File", StringComparison.OrdinalIgnoreCase))
-            {
-                _repository = new FileBookRepository();
-            }
-            else if (!string.IsNullOrEmpty(repoType) && repoType.Equals("Database", StringComparison.OrdinalIgnoreCase))
-            {
-                _repository = new DbBookRepository();
-            }
-            else
-            {
-                _repository = new InMemoryBookRepository();
-            }
-
+            _repository = ServiceLocator.GetBookRepository();
         }
 
         private string SortExpression

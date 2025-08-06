@@ -218,6 +218,7 @@
     <Compile Include="Data\FileBookRepository.cs" />
     <Compile Include="Data\IBookRepository.cs" />
     <Compile Include="Data\InMemoryBookRepository.cs" />
+    <Compile Include="Data\ServiceLocator.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
