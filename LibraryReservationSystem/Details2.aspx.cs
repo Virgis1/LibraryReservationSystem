@@ -13,9 +13,14 @@ namespace LibraryReservationSystem
         public Details2()
         {
             string repoType = ConfigurationManager.AppSettings["RepositoryType"];
+
             if (!string.IsNullOrEmpty(repoType) && repoType.Equals("File", StringComparison.OrdinalIgnoreCase))
             {
                 _repository = new FileBookRepository();
+            }
+            else if (!string.IsNullOrEmpty(repoType) && repoType.Equals("Database", StringComparison.OrdinalIgnoreCase))
+            {
+                _repository = new DbBookRepository();
             }
             else
             {

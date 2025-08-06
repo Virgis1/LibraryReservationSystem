@@ -214,6 +214,7 @@
     <Compile Include="Controls\BookCount.ascx.designer.cs">
       <DependentUpon>BookCount.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Data\DbBookRepository.cs" />
     <Compile Include="Data\FileBookRepository.cs" />
     <Compile Include="Data\IBookRepository.cs" />
     <Compile Include="Data\InMemoryBookRepository.cs" />

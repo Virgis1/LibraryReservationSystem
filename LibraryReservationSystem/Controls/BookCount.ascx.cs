@@ -17,6 +17,10 @@ namespace LibraryReservationSystem.Controls
             {
                 _repository = new FileBookRepository();
             }
+            else if (!string.IsNullOrEmpty(repoType) && repoType.Equals("Database", StringComparison.OrdinalIgnoreCase))
+            {
+                _repository = new DbBookRepository();
+            }
             else
             {
                 _repository = new InMemoryBookRepository();

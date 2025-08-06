@@ -19,10 +19,15 @@ namespace LibraryReservationSystem
             {
                 _repository = new FileBookRepository();
             }
+            else if (!string.IsNullOrEmpty(repoType) && repoType.Equals("Database", StringComparison.OrdinalIgnoreCase))
+            {
+                _repository = new DbBookRepository();
+            }
             else
             {
                 _repository = new InMemoryBookRepository();
             }
+
         }
 
         private string SortExpression
@@ -89,7 +94,6 @@ namespace LibraryReservationSystem
         {
             var books = _repository.GetBooks();
 
-            // ✅ Filter results if search text entered
             if (!string.IsNullOrWhiteSpace(txtSearch.Text))
             {
                 string searchTerm = txtSearch.Text.Trim().ToLower();
@@ -101,7 +105,6 @@ namespace LibraryReservationSystem
                     .ToList();
             }
 
-            // ✅ Apply sorting
             books = (SortDirection == "ASC")
                 ? books.OrderBy(b => GetPropertyValue(b, SortExpression)).ToList()
                 : books.OrderByDescending(b => GetPropertyValue(b, SortExpression)).ToList();
